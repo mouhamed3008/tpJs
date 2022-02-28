@@ -16,7 +16,7 @@
 //     // ev.target.id here is the id of target Object of the drop
 //     let targetEl=document.getElementById(ev.target.id)
 //     let targetParentEl=targetEl.parentElement;
-  
+
 //     // Compare List names to see if we are going between lists
 //     // or within the same list
 //     if (targetParentEl.id!==sourceIdParentEl.id){
@@ -29,17 +29,17 @@
 //           // This is in case you drag and drop a Card on top 
 //           // of a Card in a different list
 //            targetParentEl.appendChild(sourceIdEl);
-         
+
 //         }else{
 //             // Append to the list
 //              targetEl.appendChild(sourceIdEl);
-           
+
 //         }
-       
+
 //     }else{
 //         // Same list. Swap the text of the two cards
 //         // Just like swapping the values in two variables
-      
+
 //         // Temporary holder of the destination Object
 //         let holder=targetEl;
 //         // The text of the destination Object. 
@@ -51,7 +51,7 @@
 //         sourceIdEl.textContent=holderText;
 //         holderText='';
 // }
-    
+
 //   }
 
 
@@ -62,8 +62,7 @@ const save = document.getElementById('save')
 const btn1 = document.getElementById('btnRight')
 const btn2 = document.getElementById('btnLeft')
 
-var tab = [
-    {
+var tab = [{
         'libelle': "ALGO",
         "position": "g"
     },
@@ -83,49 +82,49 @@ var tab = [
 ];
 
 
-tab.forEach((element,i) => {
-        if (element.position == "g") {
-            
-            createElement(element.libelle,i);
-        }
+tab.forEach((element, i) => {
+    if (element.position == "g") {
+
+        createElement(element.libelle, i);
+    }
 });
 
 
 
 
 
-btn1.addEventListener('click',()=>{
-    
+btn1.addEventListener('click', () => {
+
     const left = liste.querySelectorAll('p')
-    
-        left.forEach(element => {
-            if (element.className === "card active") {
-                console.log(element);
-                element.className = "card"
-                tab[element.id].position = 'd'
-                liste2.appendChild(element)
-              
-            }
-        });
+
+    left.forEach(element => {
+        if (element.className === "card active") {
+            console.log(element);
+            element.className = "card"
+            tab[element.id].position = 'd'
+            liste2.appendChild(element)
+
+        }
+    });
 
 })
 
 
 
-btn2.addEventListener('click',()=>{
-    
-    const right = liste2.querySelectorAll('p')
-    
-        right.forEach(element => {
-            if (element.className === "card active") {
-                console.log(element);
-                element.className = "card"
-                tab[element.id].position = 'g'
+btn2.addEventListener('click', () => {
 
-                liste.appendChild(element)
-              
-            }
-        });
+    const right = liste2.querySelectorAll('p')
+
+    right.forEach(element => {
+        if (element.className === "card active") {
+            console.log(element);
+            element.className = "card"
+            tab[element.id].position = 'g'
+
+            liste.appendChild(element)
+
+        }
+    });
 
 })
 
@@ -133,26 +132,27 @@ btn2.addEventListener('click',()=>{
 
 // // ADD ELEMENT DOM
 
- function createElement(element,i){
+function createElement(element, i) {
     const p = document.createElement('p')
-    p.setAttribute('class','card')
+    p.setAttribute('class', 'card')
     p.id = i
-    p.setAttribute('ondragstart',`drag(event,${i})`)
-    p.setAttribute('draggable','true')
+    p.setAttribute('ondragstart', `drag(event,${i})`)
+    p.setAttribute('ondblclick', `update(${i})`)
+    p.setAttribute('draggable', 'true')
     p.innerText = element
 
-    p.addEventListener('dblclick', ()=>{
+    p.addEventListener('dblclick', () => {
         p.style.backgroundColor = 'red';
         let tempVal = p;
         const updateInput = document.createp('textarea');
-        updateInput.setAttribute('cols','20')
+        updateInput.setAttribute('cols', '20')
         console.log(tempVal);
         updateInput.value = tempVal.innerText;
 
         tempVal.innerHTML = ''
         tempVal.appendChild(updateInput)
 
-        updateInput.addEventListener('blur',function(){
+        updateInput.addEventListener('blur', function() {
             tempVal.innerHTML = updateInput.value;
             p.style.backgroundColor = 'White';
             p.libelle = updateInput.value.toUpperCase();
@@ -163,7 +163,7 @@ btn2.addEventListener('click',()=>{
 
 
     liste.appendChild(p)
- }
+}
 
 
 // function onClickCard(id){
@@ -171,41 +171,40 @@ btn2.addEventListener('click',()=>{
 //         targetP = document.getElementById(id)
 
 //         targetP.classList.toggle('active')  
-      
+
 //         var allActive = document.querySelectorAll('.active');
-      
+
 //         btn1.addEventListener('click',function () {
 
 //             allActive.forEach(element => {
-                
+
 //                 moveTo(element.innerText,liste2)
 //                 removeElement(element)
 //             });
-            
+
 //         })
 //         targetP.addEventListener('dblclick',()=>{
 //             moveTo(targetP.innerText,liste)
 //             removeElement(targetP)
 
 //         })
-        
+
 // }
 
 
 
- function showElement(){
-     liste.innerHTML = "";
-    document.getElementById('mm')
+function showElement() {
+    liste.innerHTML = ""
 
-     tab.forEach((element,i) => {
-       
-         if (element.position == "g") {
-             
-             createElement(element.libelle,i)
-         }
-         
-     });
- }
+    tab.forEach((element, i) => {
+
+        if (element.position == "g") {
+
+            createElement(element.libelle, i)
+        }
+
+    });
+}
 
 // const p = document.querySelectorAll('p')
 
@@ -216,7 +215,7 @@ btn2.addEventListener('click',()=>{
 
 // function moveTo(p, liste) {
 //     createElement(p,liste)
-    
+
 // }
 
 // function removeElement(p) {
@@ -226,96 +225,59 @@ btn2.addEventListener('click',()=>{
 
 
 //NEW ITEM
-save.addEventListener('blur', ()=>{
- 
+save.addEventListener('blur', () => {
+
     if (save.value !== '') {
 
-        tab.push({libelle:save.value.toUpperCase(),position:'g'})
-        // createElement(save.value)
+        tab.push({ libelle: save.value.toUpperCase(), position: 'g' })
+            // createElement(save.value)
     }
     save.value = '';
-    
+
     showElement();
     const allP = document.querySelectorAll('p')
 
-for (let index = 0; index < allP.length; index++) {
-    allP[index].addEventListener('click',()=>{
-        allP[index].classList.toggle('active');
-    })
-
-    // allP[index].addEventListener('dblclick', ()=>{
-    //     allP[index].style.backgroundColor = 'red';
-    //     let tempVal = allP[index];
-    //     const updateInput = document.createElement('textarea');
-    //     updateInput.setAttribute('cols','20')
-    //     console.log(tempVal);
-    //     updateInput.value = tempVal.innerText;
-
-    //     tempVal.innerHTML = ''
-    //     tempVal.appendChild(updateInput)
-
-    //     updateInput.addEventListener('blur',function(){
-    //         tempVal.innerHTML = updateInput.value;
-    //         allP[index].style.backgroundColor = 'White';
-    //         allP[index].libelle = updateInput.value.toUpperCase();
-    //     })
-    //     updateInput.focus()
-    //     showElement()
-    // })
-
-  
-}
+    for (let index = 0; index < allP.length; index++) {
+        allP[index].addEventListener('click', () => {
+            allP[index].classList.toggle('active');
+        })
+    }
 })
 
 
+function update(id) {
+    let par = document.getElementById(id)
+    par.style.backgroundColor = 'red';
+    let tempVal = par;
+    const updateInput = document.createElement('textarea');
+    updateInput.setAttribute('cols', '20')
+    console.log(tempVal);
+    updateInput.value = tempVal.innerText;
 
+    tempVal.innerHTML = ''
+    tempVal.appendChild(updateInput)
 
-  
-
-const allP = document.querySelectorAll('p')
-
-for (let index = 0; index < allP.length; index++) {
-
-
-    allP[index].addEventListener('dblclick', ()=>{
-        allP[index].style.backgroundColor = 'red';
-        let tempVal = allP[index];
-        const updateInput = document.createElement('textarea');
-        updateInput.setAttribute('cols','20')
-        console.log(tempVal);
-        updateInput.value = tempVal.innerText;
-
-        tempVal.innerHTML = ''
-        tempVal.appendChild(updateInput)
-
-        updateInput.addEventListener('blur',function(){
-            tempVal.innerHTML = updateInput.value.toUpperCase();
-            allP[index].style.backgroundColor = '';
-            allP[index].className  = 'card';
-            allP[index].libelle = updateInput.value;
-        })
-        updateInput.focus()
-
+    updateInput.addEventListener('blur', function() {
+        tempVal.innerHTML = updateInput.value.toUpperCase();
+        par.style.backgroundColor = '';
+        par.className = 'card';
+        par.libelle = updateInput.value;
     })
+    updateInput.focus()
 
-    allP[index].addEventListener('click',()=>{
-        allP[index].classList.toggle('active')   
-        console.log(allP[index]);
-    })
-    
 }
 
 
-function drag(event,i){
+function drag(event, i) {
     event.preventDefault()
     let conf = confirm('Voulez-vous supprimer cet item')
     console.log(conf);
-    if (conf == true ) {
+    if (conf == true) {
         let removeRow = document.getElementById(i)
-        tab.splice(i,1)
-        
+        tab.splice(i, 1)
+
         removeRow.remove()
     }
-   
+
 
 }
